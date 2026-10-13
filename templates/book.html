@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книги - {{book.title}}</title>
+</head>
+<body>
+    <h1>{{book.title}} - {{book.author}}, {{book.year}}</h1>
+    <p>Автор: {{book.author}}</p>
+    <p>Год издания: {{book.year}}</p>
+    <p>Страниц: {{book.pages}}</p>
+    <p>Рейтинг: {{book.rating}}</p>
+    <p>Лет с момента издания: {{current_year - book.year}}</p>
+    <p>Жанр: {{book.genres[0]}}</p>
+    <p>Сколько уйдёт на чтение (30 стр. в день): {{book.pages //  30}}</p>
+</body>
+</html>
