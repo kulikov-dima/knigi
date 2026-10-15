@@ -3,28 +3,66 @@
 <head>
   <meta charset="utf-8">
   <title>{{ site_name }}</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <!-- 5.4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h1>{{ site_name }}</h1>
-  <p>Книг в каталоге: {{ books | length }}</p>
+  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
+  <nav class="nav">
+    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
+    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
+    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
+  </nav>
 
-  <!-- 4.1 (простой список) заменён карточками из 4.5 -->
-  <!-- 4.5 + 4.6 -->
+  <!-- 5.6 -->
+  <h1>
+    Каталог книг{% if current_genre %}: {{ current_genre }}{% endif %}
+  </h1>
+
+  <!-- 5.7 + 5.9 -->
+  <p class="filters">
+    Жанр:
+    <a href="{{ url_for('index', sort=current_sort) }}"
+       class="tag {{ 'tag-active' if not current_genre else '' }}">все</a>
+    {% for genre in genres %}
+      <a href="{{ url_for('index', genre=genre, sort=current_sort) }}"
+         class="tag {{ 'tag-active' if genre == current_genre else '' }}">{{ genre }}</a>
+    {% endfor %}
+  </p>
+
+  <!-- 5.8 + 5.9 -->
+  <p class="filters">
+    Сортировка:
+    <a href="{{ url_for('index', genre=current_genre) }}"
+       class="{{ 'current' if not current_sort else '' }}">без сортировки</a>
+    <a href="{{ url_for('index', genre=current_genre, sort='year') }}"
+       class="{{ 'current' if current_sort == 'year' else '' }}">по году</a>
+    <a href="{{ url_for('index', genre=current_genre, sort='title') }}"
+       class="{{ 'current' if current_sort == 'title' else '' }}">по названию</a>
+  </p>
+
+  <!-- 5.10 -->
+  <p>Найдено книг: {{ books | length }}</p>
+
   <div class="grid">
     {% for book in books %}
       <article class="card {{ 'first' if loop.first else '' }}">
-        <h3>{{ book.title }}</h3>
+        <!-- 5.2 -->
+        <h3><a href="{{ url_for('book', book_id=book.id) }}">{{ book.title }}</a></h3>
         <p class="muted">{{ book.author }}, {{ book.year }}</p>
         <p>Рейтинг: {{ book.rating | default("нет оценки") }}</p>
         <p>
           {% for genre in book.genres %}
-            <span class="tag">{{ genre }}</span>
+            <!-- 5.6 -->
+            <a class="tag" href="{{ url_for('index', genre=genre) }}">{{ genre }}</a>
           {% else %}
             <span class="muted">Жанр не указан</span>
           {% endfor %}
         </p>
       </article>
+    {% else %}
+      <!-- 5.10 -->
+      <p>Книг с таким жанром нет.</p>
     {% endfor %}
   </div>
 </body>

@@ -1,23 +1,47 @@
 from datetime import date
 
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
 from books import BOOKS
 
 app = Flask(__name__)
 
 
+def all_genres():
+    """5.7 — все жанры без повторов, по алфавиту."""
+    genres = set()
+    for book in BOOKS:
+        for genre in book["genres"]:
+            genres.add(genre)
+    return sorted(genres)
+
+
 @app.route("/")
 def index():
+    genre = request.args.get("genre")   # 5.6
+    sort = request.args.get("sort")     # 5.8
+
+    books = BOOKS
+    if genre:
+        books = [b for b in books if genre in b["genres"]]
+    if sort == "year":
+        books = sorted(books, key=lambda b: b["year"])
+    elif sort == "title":
+        books = sorted(books, key=lambda b: b["title"])
+
     return render_template(
         "index.html",
         site_name="Книжная полка",
-        books=BOOKS,
+        books=books,
+        genres=all_genres(),
+        current_genre=genre,
+        current_sort=sort,
+        active="index",
     )
 
 
 @app.route("/table")
 def table():
-    return render_template("table.html", books=BOOKS)
+    return render_template("table.html", books=BOOKS, active="table")
 
 
 @app.route("/classic")
@@ -35,7 +59,7 @@ def book(book_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", active="about")
 
 
 if __name__ == "__main__":

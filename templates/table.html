@@ -3,10 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>Таблица книг</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <!-- 5.4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <!-- 4.2 -->
+  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
+  <nav class="nav">
+    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
+    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
+    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
+  </nav>
+
   <h1>Все книги таблицей</h1>
   <table class="table">
     <tr>
@@ -15,15 +22,14 @@
     {% for book in books %}
       <tr class="{{ loop.cycle('odd', 'even') }}">
         <td>{{ loop.index }}</td>
-        <td>{{ book.title }}</td>
+        <!-- 5.2 -->
+        <td><a href="{{ url_for('book', book_id=book.id) }}">{{ book.title }}</a></td>
         <td>{{ book.author }}</td>
         <td>{{ book.year }}</td>
         <td>{{ book.genres | join(", ") }}</td>
       </tr>
     {% endfor %}
   </table>
-
-  <!-- 4.3 -->
   <p>Всего книг: {{ books | length }}</p>
 </body>
 </html>

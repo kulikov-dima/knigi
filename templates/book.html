@@ -3,21 +3,28 @@
 <head>
   <meta charset="utf-8">
   <title>{{ book.title }}</title>
-  <!-- ссылка вручную; в этапе 5 заменим на url_for -->
-  <link rel="stylesheet" href="/static/style.css">
+  <!-- 5.4 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <!-- 3.5 -->
+  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
+  <nav class="nav">
+    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
+    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
+    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
+  </nav>
+
+  <!-- 5.3 -->
+  <p><a href="{{ url_for('index') }}">← Назад к каталогу</a></p>
+
   <h1 class="{{ 'top' if book.rating is defined and book.rating >= 4.5 else '' }}">
     {{ book.title | upper }}
   </h1>
 
-  <!-- 3.6 -->
   {% if "фантастика" in book.genres or "фэнтези" in book.genres %}
     <p><i>Для любителей необычных миров</i></p>
   {% endif %}
 
-  <!-- 3.1 -->
   {% if current_year - book.year > 50 %}
     <span class="badge">Классика</span>
   {% elif current_year - book.year <= 5 %}
@@ -28,7 +35,6 @@
   <p>Год издания: {{ book.year }} ({{ current_year - book.year }} лет назад)</p>
   <p>Страниц: {{ book.pages }}</p>
 
-  <!-- 3.2 -->
   {% if book.pages > 400 %}
     <p>Толстая книга — читать долго.</p>
   {% elif book.pages > 200 %}
@@ -39,7 +45,6 @@
 
   <p>Рейтинг: {{ book.rating | default("нет оценки") }}</p>
 
-  <!-- 3.4 -->
   {% if book.genres %}
     <p>Жанры: {{ book.genres | join(" · ") }} ({{ book.genres | length }})</p>
   {% else %}
@@ -48,24 +53,23 @@
 
   <p>Чтобы прочитать за 2 недели, нужно читать по {{ (book.pages / 14) | round(1) }} стр. в день.</p>
 
-  <!-- 3.3 -->
   <h2>Описание</h2>
   {% if book.description is defined %}
     <p>{{ book.description | truncate(150) }}</p>
   {% else %}
     <p class="muted">Описание скоро появится.</p>
   {% endif %}
-  <!-- 4.4 -->
+
   <h2>Метки жанров</h2>
   <p>
     {% for genre in book.genres %}
-      <span class="tag">{{ genre }}</span>
+      <!-- 5.6 -->
+      <a class="tag" href="{{ url_for('index', genre=genre) }}">{{ genre }}</a>
     {% else %}
       <span class="muted">Жанр не указан</span>
     {% endfor %}
   </p>
 
-  <!-- 4.8 -->
   <details>
     <summary>Все поля книги</summary>
     <ul>
