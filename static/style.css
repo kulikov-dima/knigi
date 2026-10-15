@@ -1,8 +1,10 @@
 * { box-sizing: border-box; }
-body { font-family: system-ui, sans-serif; max-width: 960px; margin: 0 auto; padding: 0 16px 24px; line-height: 1.5; background: #f6f4ef; color: #222; }
+body { margin: 0; font-family: system-ui, sans-serif; line-height: 1.5; background: #f6f4ef; color: #222; }
+main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
 a { color: #2b5cb8; }
 
-.nav { display: flex; flex-wrap: wrap; gap: 16px; padding: 14px 16px; margin: 0 -16px 16px; background: #2d3a4a; }
+.nav { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 24px; background: #2d3a4a; }
+.nav .logo { font-weight: bold; margin-right: auto; color: #fff; }
 .nav a { color: #dfe6ee; text-decoration: none; }
 .nav a.current { color: #fff; font-weight: bold; border-bottom: 2px solid #f0b429; }
 
@@ -28,3 +30,5 @@ a { color: #2b5cb8; }
 .table th { background: #2d3a4a; color: #fff; }
 .table tr.odd { background: #fff; }
 .table tr.even { background: #eef1f6; }
+
+.footer { text-align: center; padding: 20px; color: #777; font-size: 14px; }

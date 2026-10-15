@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>О сайте</title>
-  <!-- 5.4 -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
-  <nav class="nav">
-    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
-    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
-    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
-  </nav>
+{% extends "base.html" %}
 
+{% block title %}О сайте — Книжная полка{% endblock %}
+
+{% block content %}
   <h1>О сайте</h1>
   <p>Это учебный каталог книг на Flask.</p>
   <p>Здесь мы учимся работать с шаблонами Jinja2.</p>
   <p><a href="{{ url_for('index') }}">Перейти к каталогу</a></p>
-</body>
-</html>
+{% endblock %}

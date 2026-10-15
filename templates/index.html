@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>{{ site_name }}</title>
-  <!-- 5.4 -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
-  <nav class="nav">
-    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
-    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
-    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
-  </nav>
+{% extends "base.html" %}
 
+{% block title %}Каталог — Книжная полка{% endblock %}
+
+{% block content %}
   <!-- 5.6 -->
   <h1>
     Каталог книг{% if current_genre %}: {{ current_genre }}{% endif %}
@@ -65,5 +54,4 @@
       <p>Книг с таким жанром нет.</p>
     {% endfor %}
   </div>
-</body>
-</html>
+{% endblock %}

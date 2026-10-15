@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <title>{{ book.title }}</title>
-  <!-- 5.4 -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <!-- 5.5 — меню (пока копия в каждом шаблоне) -->
-  <nav class="nav">
-    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
-    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
-    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
-  </nav>
+{% extends "base.html" %}
 
+{% block title %}{{ book.title }} — Книжная полка{% endblock %}
+
+{% block content %}
   <!-- 5.3 -->
   <p><a href="{{ url_for('index') }}">← Назад к каталогу</a></p>
 
@@ -82,5 +71,9 @@
       {% endfor %}
     </ul>
   </details>
-</body>
-</html>
+{% endblock %}
+
+{# 6.4 #}
+{% block footer %}
+  {{ super() }} · Книга №{{ book.id }}
+{% endblock %}

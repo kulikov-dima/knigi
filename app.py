@@ -46,7 +46,7 @@ def table():
 
 @app.route("/classic")
 def classic():
-    return render_template("classic.html", books=BOOKS)
+    return render_template("classic.html", books=BOOKS, active="classic")
 
 
 @app.route("/book/<int:book_id>")
@@ -60,6 +60,12 @@ def book(book_id):
 @app.route("/about")
 def about():
     return render_template("about.html", active="about")
+
+
+# 6.5
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
