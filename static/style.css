@@ -32,3 +32,4 @@ a { color: #2b5cb8; }
 .table tr.even { background: #eef1f6; }
 
 .footer { text-align: center; padding: 20px; color: #777; font-size: 14px; }
+.footer-note { margin: 4px 0 0; font-size: 12px; }

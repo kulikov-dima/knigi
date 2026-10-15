@@ -7,18 +7,15 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <nav class="nav">
-    <a class="logo" href="{{ url_for('index') }}">📚 Книжная полка</a>
-    <a href="{{ url_for('index') }}" class="{{ 'current' if active == 'index' else '' }}">Карточки</a>
-    <a href="{{ url_for('table') }}" class="{{ 'current' if active == 'table' else '' }}">Таблица</a>
-    <a href="{{ url_for('classic') }}" class="{{ 'current' if active == 'classic' else '' }}">Классика</a>
-    <a href="{{ url_for('about') }}" class="{{ 'current' if active == 'about' else '' }}">О сайте</a>
-  </nav>
+  {% include "partials/nav.html" %}
 
   <main>
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="footer">{% block footer %}Учебный проект{% endblock %}</footer>
+  <footer class="footer">
+    {% block footer %}Учебный проект{% endblock %}
+    {% include "partials/footer.html" %}
+  </footer>
 </body>
 </html>
