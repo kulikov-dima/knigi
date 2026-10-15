@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Классика</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- 4.7 -->
+  <h1>Книги, изданные до 1950 года</h1>
+  <ul>
+    {% for book in books if book.year < 1950 %}
+      <li>{{ book.title }} — {{ book.author }} ({{ book.year }})</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

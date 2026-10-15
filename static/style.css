@@ -5,3 +5,16 @@ body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; pad
 
 .badge { display: inline-block; padding: 2px 10px; border-radius: 6px; background: #f0b429; font-size: 14px; }
 .badge-new { background: #7ccf8a; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 16px; }
+.card h3 { margin: 0 0 6px; }
+.card.first { border: 2px solid #f0b429; }
+
+.tag { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #e6ecf5; color: #2b5cb8; font-size: 14px; }
+
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 8px 10px; text-align: left; }
+.table th { background: #2d3a4a; color: #fff; }
+.table tr.odd { background: #fff; }
+.table tr.even { background: #eef1f6; }

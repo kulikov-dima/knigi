@@ -3,11 +3,29 @@
 <head>
   <meta charset="utf-8">
   <title>{{ site_name }}</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- 1.1 -->
   <h1>{{ site_name }}</h1>
-  <p>Книг в каталоге: {{ books_count }}</p>
-  <p>Последняя книга в списке: {{ books[-1].title }}</p>
+  <p>Книг в каталоге: {{ books | length }}</p>
+
+  <!-- 4.1 (простой список) заменён карточками из 4.5 -->
+  <!-- 4.5 + 4.6 -->
+  <div class="grid">
+    {% for book in books %}
+      <article class="card {{ 'first' if loop.first else '' }}">
+        <h3>{{ book.title }}</h3>
+        <p class="muted">{{ book.author }}, {{ book.year }}</p>
+        <p>Рейтинг: {{ book.rating | default("нет оценки") }}</p>
+        <p>
+          {% for genre in book.genres %}
+            <span class="tag">{{ genre }}</span>
+          {% else %}
+            <span class="muted">Жанр не указан</span>
+          {% endfor %}
+        </p>
+      </article>
+    {% endfor %}
+  </div>
 </body>
 </html>

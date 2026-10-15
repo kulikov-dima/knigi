@@ -11,9 +11,18 @@ def index():
     return render_template(
         "index.html",
         site_name="Книжная полка",
-        books_count=len(BOOKS),
         books=BOOKS,
     )
+
+
+@app.route("/table")
+def table():
+    return render_template("table.html", books=BOOKS)
+
+
+@app.route("/classic")
+def classic():
+    return render_template("classic.html", books=BOOKS)
 
 
 @app.route("/book/<int:book_id>")
@@ -21,7 +30,7 @@ def book(book_id):
     for b in BOOKS:
         if b["id"] == book_id:
             return render_template("book.html", book=b, current_year=date.today().year)
-    abort(404)   # 3.7
+    abort(404)
 
 
 @app.route("/about")

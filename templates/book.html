@@ -55,5 +55,28 @@
   {% else %}
     <p class="muted">Описание скоро появится.</p>
   {% endif %}
+  <!-- 4.4 -->
+  <h2>Метки жанров</h2>
+  <p>
+    {% for genre in book.genres %}
+      <span class="tag">{{ genre }}</span>
+    {% else %}
+      <span class="muted">Жанр не указан</span>
+    {% endfor %}
+  </p>
+
+  <!-- 4.8 -->
+  <details>
+    <summary>Все поля книги</summary>
+    <ul>
+      {% for key, value in book.items() %}
+        {% if key == "genres" %}
+          <li>{{ key }}: {{ value | join(", ") }}</li>
+        {% else %}
+          <li>{{ key }}: {{ value }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </details>
 </body>
 </html>
