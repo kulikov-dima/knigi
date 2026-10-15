@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 from books import BOOKS
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ def book(book_id):
     for b in BOOKS:
         if b["id"] == book_id:
             return render_template("book.html", book=b, current_year=date.today().year)
-    return "Книга не найдена", 404
+    abort(404)   # 3.7
 
 
 @app.route("/about")

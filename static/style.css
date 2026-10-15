@@ -1,1 +1,7 @@
-/* Стили появятся в этапе 3 */
+body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 24px 16px; line-height: 1.5; }
+
+.top { color: #b8860b; }
+.muted { color: #888; }
+
+.badge { display: inline-block; padding: 2px 10px; border-radius: 6px; background: #f0b429; font-size: 14px; }
+.badge-new { background: #7ccf8a; }

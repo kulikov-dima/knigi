@@ -3,36 +3,57 @@
 <head>
   <meta charset="utf-8">
   <title>{{ book.title }}</title>
+  <!-- ссылка вручную; в этапе 5 заменим на url_for -->
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- 2.1 -->
-  <h1>{{ book.title | upper }}</h1>
+  <!-- 3.5 -->
+  <h1 class="{{ 'top' if book.rating is defined and book.rating >= 4.5 else '' }}">
+    {{ book.title | upper }}
+  </h1>
+
+  <!-- 3.6 -->
+  {% if "фантастика" in book.genres or "фэнтези" in book.genres %}
+    <p><i>Для любителей необычных миров</i></p>
+  {% endif %}
+
+  <!-- 3.1 -->
+  {% if current_year - book.year > 50 %}
+    <span class="badge">Классика</span>
+  {% elif current_year - book.year <= 5 %}
+    <span class="badge badge-new">Новинка</span>
+  {% endif %}
+
   <p>Автор: {{ book.author }}</p>
-  <p>Год издания: {{ book.year }}</p>
+  <p>Год издания: {{ book.year }} ({{ current_year - book.year }} лет назад)</p>
   <p>Страниц: {{ book.pages }}</p>
 
-  <!-- 2.4 -->
+  <!-- 3.2 -->
+  {% if book.pages > 400 %}
+    <p>Толстая книга — читать долго.</p>
+  {% elif book.pages > 200 %}
+    <p>Книга средней толщины.</p>
+  {% else %}
+    <p>Тонкая книга — можно прочитать за пару вечеров.</p>
+  {% endif %}
+
   <p>Рейтинг: {{ book.rating | default("нет оценки") }}</p>
 
-  <!-- 2.2 -->
-  <p>Жанры: {{ book.genres | join(" · ") }} ({{ book.genres | length }})</p>
+  <!-- 3.4 -->
+  {% if book.genres %}
+    <p>Жанры: {{ book.genres | join(" · ") }} ({{ book.genres | length }})</p>
+  {% else %}
+    <p>Жанры не указаны</p>
+  {% endif %}
 
-  <!-- 2.3 + 2.5 -->
-  <p>Описание: {{ book.description | default("Описание скоро появится") | truncate(80) }}</p>
-
-  <!-- из этапа 1 -->
-  <p>Книге {{ current_year - book.year }} лет.</p>
-  <p>По 30 страниц в день книгу можно прочитать за {{ book.pages // 30 + 1 }} дн.</p>
-  <p>{{ book.title ~ " — " ~ book.author ~ ", " ~ book.year }}</p>
-
-  <!-- 2.6 -->
   <p>Чтобы прочитать за 2 недели, нужно читать по {{ (book.pages / 14) | round(1) }} стр. в день.</p>
 
-  <!-- 2.7 -->
-  <p>В названии {{ book.title | length }} символов.</p>
-
-  <!-- 2.8 — исследование -->
-  <p>first: «{{ book.genres | first }}»</p>
-  <p>join: «{{ book.genres | join(", ") }}»</p>
+  <!-- 3.3 -->
+  <h2>Описание</h2>
+  {% if book.description is defined %}
+    <p>{{ book.description | truncate(150) }}</p>
+  {% else %}
+    <p class="muted">Описание скоро появится.</p>
+  {% endif %}
 </body>
 </html>
