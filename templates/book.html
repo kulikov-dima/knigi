@@ -78,5 +78,11 @@
       {% endfor %}
     </ul>
   </details>
+  <h2>Похожие книги</h2>
+  <ul>
+    {%for book in similar_books%}
+      <li><a href="/book/{{book.id}}">{{book.title}}</a></li>
+    {%endfor%}
+  </ul>
 </body>
 </html>
